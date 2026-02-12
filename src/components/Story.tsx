@@ -125,7 +125,7 @@ export default function Story() {
                       key={i}
                       className={`aspect-square relative overflow-hidden ${!showImage ? `bg-gradient-to-br ${PLACEHOLDER_GRADIENTS[i] ?? PLACEHOLDER_GRADIENTS[0]} flex items-center justify-center p-2` : ""}`}
                     >
-                      {showImage ? (
+                      {showImage && item.src ? (
                         <Image
                           src={item.src}
                           alt={item.alt}
