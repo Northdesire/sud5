@@ -27,10 +27,26 @@ export default function InquiryForm({ isOpen, onToggle }: InquiryFormProps) {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log("Anfrage:", formData);
-    setSubmitted(true);
+    setSending(true);
+    setError("");
+    try {
+      const res = await fetch("/api/anfrage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) throw new Error();
+      setSubmitted(true);
+    } catch {
+      setError("Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut.");
+    } finally {
+      setSending(false);
+    }
   };
 
   const input =
@@ -189,13 +205,19 @@ export default function InquiryForm({ isOpen, onToggle }: InquiryFormProps) {
               />
             </div>
 
+            {/* Error */}
+            {error && (
+              <p className="text-red-500 text-sm">{error}</p>
+            )}
+
             {/* Submit */}
             <div className="pt-6">
               <button
                 type="submit"
-                className="px-10 py-3.5 bg-[var(--color-foreground)] text-white rounded-full text-base md:text-[17px] tracking-[0.15em] uppercase hover:bg-[var(--color-foreground)]/80 transition-all duration-300 cursor-pointer"
+                disabled={sending}
+                className="px-10 py-3.5 bg-[var(--color-foreground)] text-white rounded-full text-base md:text-[17px] tracking-[0.15em] uppercase hover:bg-[var(--color-foreground)]/80 transition-all duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Anfrage absenden
+                {sending ? "Wird gesendet..." : "Anfrage absenden"}
               </button>
             </div>
           </form>
