@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() {
+  return new Resend(process.env.RESEND_API_KEY);
+}
 
 interface AnfrageData {
   name: string;
@@ -100,7 +102,7 @@ export async function POST(request: Request) {
       );
     }
 
-    await resend.emails.send({
+    await getResend().emails.send({
       from: "Süd5 Borkum <onboarding@resend.dev>",
       to: process.env.NOTIFY_EMAIL!,
       replyTo: data.email,
