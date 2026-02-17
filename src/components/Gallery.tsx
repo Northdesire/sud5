@@ -15,8 +15,8 @@ export default function Gallery() {
   return (
     <section id="galerie" className="pt-16 pb-16 px-6">
       <div className="max-w-6xl mx-auto">
-        {/* Intro text - linksbündig wie Story */}
-        <div className="max-w-2xl mb-16">
+        {/* Intro text – auf PC zentriert */}
+        <div className="max-w-2xl mb-16 md:mx-auto md:text-center">
           <h2 className="font-[family-name:var(--font-serif)] text-3xl md:text-5xl text-[var(--color-foreground)] mb-6 leading-snug">
             Ankommen &amp; Wohlfühlen
           </h2>
@@ -47,15 +47,15 @@ export default function Gallery() {
         </div>
 
         {/* Bilderslider – 2 Bilder sichtbar, scrollbar links/rechts */}
-        <div className="mb-4">
+        <div className="mb-4 md:text-center">
           <p className="text-[13px] tracking-[0.2em] uppercase text-[var(--color-ocean-strong)]/80 mb-3">
             Galerie · Nach links und rechts scrollen
           </p>
           <ImageSlider images={SLIDER_IMAGES} visibleCount={2} />
         </div>
 
-        {/* Angebote – klares Grid */}
-        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 max-w-2xl gap-px bg-[var(--color-sand-dark)]/50 rounded-xl overflow-hidden">
+        {/* Angebote – klares Grid, auf PC zentriert */}
+        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 max-w-2xl gap-px bg-[var(--color-sand-dark)]/50 rounded-xl overflow-hidden md:mx-auto">
           {[
             { label: "Einzelzimmer", detail: "Gemütlich für 1" },
             { label: "Doppelzimmer", detail: "Perfekt zu zweit" },
